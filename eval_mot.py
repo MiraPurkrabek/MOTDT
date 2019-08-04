@@ -12,6 +12,7 @@ from utils.evaluation import Evaluator
 
 
 def mkdirs(path):
+    print("Trying to make directory", path)
     if os.path.exists(path):
         return
     os.makedirs(path)
@@ -86,8 +87,8 @@ def eval_seq(dataloader, data_type, result_filename, save_dir=None, show_image=T
     write_results(result_filename, results, data_type)
 
 
-def main(data_root='/data/MOT16/train', det_root=None,
-         seqs=('MOT16-05',), exp_name='demo', save_image=False, show_image=True):
+def main(data_root='/mnt/EEC2C12EC2C0FBB9/Users/mirap/CMP/MOTDT/datasets', det_root=None,
+         seqs=('MOT17-01-DPM ',), exp_name='demo', save_image=True, show_image=False):
     logger.setLevel(logging.INFO)
     result_root = os.path.join(data_root, '..', 'results', exp_name)
     mkdirs(result_root)
@@ -111,17 +112,17 @@ def main(data_root='/data/MOT16/train', det_root=None,
 
     # get summary
     # metrics = ['mota', 'num_switches', 'idp', 'idr', 'idf1', 'precision', 'recall']
-    metrics = mm.metrics.motchallenge_metrics
+    #metrics = mm.metrics.motchallenge_metrics
     # metrics = None
-    mh = mm.metrics.create()
-    summary = Evaluator.get_summary(accs, seqs, metrics)
-    strsummary = mm.io.render_summary(
-        summary,
-        formatters=mh.formatters,
-        namemap=mm.io.motchallenge_metric_names
-    )
-    print(strsummary)
-    Evaluator.save_summary(summary, os.path.join(result_root, f'summary_{exp_name}.xlsx'))
+    #mh = mm.metrics.create()
+    #summary = Evaluator.get_summary(accs, seqs, metrics)
+    #strsummary = mm.io.render_summary(
+    #    summary,
+    #    formatters=mh.formatters,
+    #    namemap=mm.io.motchallenge_metric_names
+    #)
+    #print(strsummary)
+    #Evaluator.save_summary(summary, os.path.join(result_root, 'summary_{exp_name}.xlsx'))
 
     # # eval
     # try:
@@ -152,7 +153,8 @@ if __name__ == '__main__':
                 MOT16-13'''
     seqs = [seq.strip() for seq in seqs_str.split()]
 
-    main(data_root='/data/MOT16/train',
-         seqs=seqs,
-         exp_name='mot16_val',
-         show_image=False)
+    #main(data_root='/data/MOT16/train',
+    #     seqs=seqs,
+    #     exp_name='mot16_val',
+    #     show_image=False)
+    main()
